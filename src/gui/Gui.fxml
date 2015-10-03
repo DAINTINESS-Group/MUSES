@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections ?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleFileAction" text="Open" />
+              <MenuItem mnemonicParsing="false" onAction="#exportPatterns" text="Export to CSV" />
+              <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <BorderPane prefHeight="375.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+         <bottom>
+            <HBox prefHeight="21.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="fileLoaded" text="File loaded: " />
+                  <Pane prefHeight="21.0" prefWidth="539.0" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="supportCType" text="Support type: " />
+               </children>
+            </HBox>
+         </bottom>
+         <center>
+            <SplitPane dividerPositions="0.12" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Tables">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <ListView fx:id="tables" onMouseClicked="#handleEventsClick" layoutY="17.0" maxWidth="-Infinity" prefHeight="335.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="17.0" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <VBox prefHeight="352.0" prefWidth="276.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Events">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TableView fx:id="eventsTableView" prefWidth="293.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		                          
+		                          <columnResizePolicy>
+                        			<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     			</columnResizePolicy>
+		                        </TableView>
+                              <Separator prefWidth="200.0" />
+                              <Pane prefHeight="15.0" prefWidth="276.0" />
+                              <FlowPane alignment="TOP_RIGHT" prefHeight="51.0" prefWidth="276.0">
+                                 <children>
+                                  <Label text="Threshold(max=1) "/>
+                                    <TextField fx:id="minSupport" alignment="CENTER_RIGHT">
+                                       <FlowPane.margin>
+                                          <Insets bottom="5.0" right="5.0" top="5.0" />
+                                       </FlowPane.margin>
+                                    </TextField>
+                                    <Label text="Counting Method "/>
+                                    <ComboBox fx:id="supportType" prefWidth="150.0">
+                                    	<items>
+								        <FXCollections fx:factory="observableArrayList">
+								          <String fx:value="COBJ" />
+								          <String fx:value="CDIST" />
+								        </FXCollections>
+								      </items>
+                                       <FlowPane.margin>
+                                          <Insets right="5.0" />
+                                       </FlowPane.margin>
+                                    </ComboBox>
+                                    <Button fx:id="runButton" onAction="#handleRunButtonAction" mnemonicParsing="false" text="Run" />
+
+                                    <Label text="Stats File"/>
+                                    <TextField fx:id="ini" alignment="CENTER_RIGHT">
+                                       <FlowPane.margin>
+                                          <Insets bottom="5.0" right="5.0" top="5.0" />
+                                       </FlowPane.margin>
+                                    </TextField>
+                                    <Button fx:id="loadini" onAction="#loadini" mnemonicParsing="false" text="Load" />
+                                 </children>
+                              </FlowPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </center>
+         <left>
+            <VBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Patterns">
+                     <VBox.margin>
+                        <Insets bottom="1.0" left="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="tablePatternView" onMouseClicked="#handleMouseClick" prefHeight="200.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+                      <columns>
+				            <TableColumn fx:id="pattern" prefWidth="260.0" text="Pattern" />
+				            <TableColumn fx:id="support" prefWidth="50" text="Support" />
+				            <TableColumn fx:id="occurences" prefWidth="40" text="Occurences" />
+				          </columns>
+                     
+                  </TableView>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+      </BorderPane>
+   </children>
+</VBox>
